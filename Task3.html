@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Advanced CSS & JavaScript Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Tailwind CSS v2.2.19 via jsDelivr -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Font Awesome v6.5.2 via jsDelivr -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
+  <!-- Google Fonts v3.3.1 (Roboto) via jsDelivr -->
+  <link href="https://cdn.jsdelivr.net/npm/@fontsource/roboto@3.3.1/index.min.css" rel="stylesheet">
+  <style>
+    /* Custom Responsive for extra demonstration */
+    @media (max-width: 640px) {
+      .custom-title { font-size: 2rem; }
+      .carousel-img { height: 180px; }
+    }
+    @media (min-width: 641px) and (max-width: 1023px) {
+      .custom-title { font-size: 2.5rem; }
+      .carousel-img { height: 270px; }
+    }
+    @media (min-width: 1024px) {
+      .custom-title { font-size: 3rem; }
+      .carousel-img { height: 350px; }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen font-sans flex flex-col items-center justify-between py-8">
+
+  <!-- Header -->
+  <header class="mb-6 text-center">
+    <h1 class="custom-title font-bold text-gray-800 tracking-wide mb-2">🌐 Advanced Styling & JavaScript Demo</h1>
+    <p class="text-lg text-gray-700">Responsive design · Interactive carousel · API-powered jokes</p>
+  </header>
+
+  <!-- Section 1: Responsive Demonstration -->
+  <section class="w-full max-w-2xl mb-10 bg-white rounded-xl shadow-lg p-6">
+    <h2 class="text-xl font-semibold mb-3 flex items-center">
+      <i class="fas fa-mobile-alt mr-2 text-blue-500"></i> Responsive Design Demo
+    </h2>
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex-1 bg-blue-200 rounded-lg p-4 mb-3 sm:mb-0 text-center border-2 border-blue-100">
+        <span class="font-bold block text-blue-700 text-lg sm:text-xl">Mobile</span>
+        <span class="text-blue-800 text-sm sm:text-base">Under 640px</span>
+      </div>
+      <div class="flex-1 bg-green-200 rounded-lg p-4 mb-3 sm:mb-0 text-center border-2 border-green-100">
+        <span class="font-bold block text-green-700 text-lg sm:text-xl">Tablet</span>
+        <span class="text-green-800 text-sm sm:text-base">641px - 1023px</span>
+      </div>
+      <div class="flex-1 bg-purple-200 rounded-lg p-4 text-center border-2 border-purple-100">
+        <span class="font-bold block text-purple-700 text-lg sm:text-xl">Desktop</span>
+        <span class="text-purple-800 text-sm sm:text-base">1024px+</span>
+      </div>
+    </div>
+    <div class="mt-4 text-center text-gray-600 text-sm">
+      <i class="fas fa-info-circle mr-1"></i>
+      Try resizing the window to see responsive adjustments in layout and typography.
+    </div>
+  </section>
+
+  <!-- Section 2: Interactive Image Carousel -->
+  <section class="w-full max-w-2xl mb-10 bg-white rounded-xl shadow-lg p-6 flex flex-col items-center">
+    <h2 class="text-xl font-semibold mb-3 flex items-center">
+      <i class="fas fa-images mr-2 text-pink-500"></i> Interactive Image Carousel
+    </h2>
+    <div id="carousel" class="relative w-full flex flex-col items-center">
+      <div class="overflow-hidden w-full flex items-center justify-center rounded-lg bg-gray-200">
+        <img id="carousel-image" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80" alt="Carousel" class="carousel-img w-full object-cover transition duration-300" style="height: 270px;">
+      </div>
+      <div class="mt-4 flex space-x-3">
+        <button id="prev-btn" class="bg-blue-500 text-white px-3 py-2 rounded-full focus:outline-none hover:bg-blue-700 transition"><i class="fas fa-arrow-left"></i></button>
+        <button id="next-btn" class="bg-blue-500 text-white px-3 py-2 rounded-full focus:outline-none hover:bg-blue-700 transition"><i class="fas fa-arrow-right"></i></button>
+      </div>
+      <div id="carousel-caption" class="mt-2 text-sm text-gray-700"></div>
+    </div>
+  </section>
+
+  <!-- Section 3: API Data Fetch (Random Joke) -->
+  <section class="w-full max-w-2xl mb-10 bg-white rounded-xl shadow-lg p-6 flex flex-col items-center">
+    <h2 class="text-xl font-semibold mb-3 flex items-center">
+      <i class="fas fa-laugh mr-2 text-yellow-500"></i> Random Joke (API Fetch)
+    </h2>
+    <div id="joke-container" class="bg-yellow-50 border border-yellow-200 rounded-lg p-5 w-full text-center min-h-24 flex items-center justify-center">
+      <span class="text-yellow-800">Loading joke...</span>
+    </div>
+    <button id="joke-btn" class="mt-4 bg-yellow-400 hover:bg-yellow-500 transition px-5 py-2 rounded font-semibold text-white flex items-center">
+      <i class="fas fa-sync-alt mr-2"></i> New Joke
+    </button>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-12 text-center text-gray-400 text-xs">
+    Powered by <a href="https://tailwindcss.com/" class="underline">Tailwind CSS</a>, <a href="https://fontawesome.com/" class="underline">Font Awesome</a>, and <a href="https://official-joke-api.appspot.com/" class="underline">Official Joke API</a>.
+    <br>
+    Images from <a href="https://unsplash.com/" class="underline">Unsplash</a>
+  </footer>
+
+  <!-- JavaScript Section -->
+  <script>
+    // Image Carousel Logic
+    const carouselImages = [
+      {
+        url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80",
+        caption: "Mountain Reflection"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1465101178521-c1a368badb09?w=800&q=80",
+        caption: "Forest Pathway"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=800&q=80",
+        caption: "Colorful Sunset"
+      },
+      {
+        url: "https://images.unsplash.com/photo-1454023492550-5696f8ff10e1?w=800&q=80",
+        caption: "Coastal Lighthouse"
+      }
+    ];
+    let currIndex = 0;
+    const imgEl = document.getElementById("carousel-image");
+    const captionEl = document.getElementById("carousel-caption");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+
+    function showImage(idx) {
+      const { url, caption } = carouselImages[idx];
+      imgEl.src = url;
+      captionEl.textContent = caption;
+    }
+
+    prevBtn.onclick = function() {
+      currIndex = (currIndex - 1 + carouselImages.length) % carouselImages.length;
+      showImage(currIndex);
+    };
+    nextBtn.onclick = function() {
+      currIndex = (currIndex + 1) % carouselImages.length;
+      showImage(currIndex);
+    };
+
+    // Initialize carousel
+    showImage(currIndex);
+
+    // Optional: arrow key navigation
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft') prevBtn.click();
+      if (e.key === 'ArrowRight') nextBtn.click();
+    });
+
+    // API Fetch (Random Joke)
+    const jokeContainer = document.getElementById("joke-container");
+    const jokeBtn = document.getElementById("joke-btn");
+
+    async function fetchJoke() {
+      jokeContainer.innerHTML = '<span class="text-yellow-800 animate-pulse">Fetching a new joke...</span>';
+      try {
+        const res = await fetch('https://official-joke-api.appspot.com/random_joke');
+        if (!res.ok) throw new Error('Network response not ok');
+        const joke = await res.json();
+        jokeContainer.innerHTML =
+          '<span class="font-semibold text-lg">' +
+          joke.setup +
+          '</span><br><span class="italic text-gray-700">' +
+          joke.punchline +
+          '</span>';
+      } catch (err) {
+        jokeContainer.innerHTML = '<span class="text-red-600">Failed to load joke. Please try again.</span>';
+      }
+    }
+
+    jokeBtn.addEventListener("click", fetchJoke);
+    // Fetch one joke initially
+    fetchJoke();
+  </script>
+</body>
+</html>
+
